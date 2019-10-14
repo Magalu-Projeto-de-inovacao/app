@@ -11,24 +11,9 @@ class RegisterUserPage extends StatefulWidget {
 class _RegisterUserPageState extends State<RegisterUserPage> {
   RegisterUserBloc registerUserBloc;
   final name = TextEditingController();
-  final lastName = TextEditingController();
-  final login = TextEditingController();
+  final phone = TextEditingController();
   final email = TextEditingController();
   final pass = TextEditingController();
-  DateTime birthday = DateTime.now();
-  bool isMale = true;
-
-  _setGenre(bool isMale) {
-    setState(() {
-      this.isMale = isMale;
-    });
-  }
-
-  _setBirthday(DateTime picked) {
-    setState(() {
-      this.birthday = picked;
-    });
-  }
 
   @override
   void initState() {
@@ -49,16 +34,11 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
                     : Icon(Icons.save)),
             body: RegisterUserContent(
-              registerUserBloc: registerUserBloc,
-              name: name,
-              lastName: lastName,
-              pass: pass,
-              email: email,
-              isMale: isMale,
-              isMaleCallback: _setGenre,
-              birthday: birthday,
-              birthdayCallback: _setBirthday,
-            ));
+                registerUserBloc: registerUserBloc,
+                name: name,
+                phone: phone,
+                pass: pass,
+                email: email));
       },
     );
   }
@@ -71,10 +51,8 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
   _submit() {
     registerUserBloc.dispatch(Register(
         name: name.text,
-        lastName: lastName.text,
+        phone: phone.text,
         email: email.text,
-        pass: pass.text,
-        birthday: birthday,
-        isMale: isMale));
+        pass: pass.text));
   }
 }

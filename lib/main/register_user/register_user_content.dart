@@ -8,23 +8,16 @@ import 'register_user.dart';
 class RegisterUserContent extends StatefulWidget {
   final RegisterUserBloc registerUserBloc;
   final TextEditingController name;
-  final TextEditingController lastName;
+  final TextEditingController phone;
   final TextEditingController email;
   final TextEditingController pass;
-  final Function isMaleCallback;
-  final bool isMale;
-  final DateTime birthday;
-  final Function birthdayCallback;
 
-  RegisterUserContent({@required this.registerUserBloc,
-    @required this.name,
-    @required this.lastName,
-    @required this.email,
-    @required this.pass,
-    @required this.isMaleCallback,
-    @required this.isMale,
-    @required this.birthday,
-    @required this.birthdayCallback});
+  RegisterUserContent(
+      {@required this.registerUserBloc,
+      @required this.name,
+      @required this.phone,
+      @required this.email,
+      @required this.pass});
 
   @override
   _RegisterUserContentState createState() => _RegisterUserContentState();
@@ -60,11 +53,9 @@ class _RegisterUserContentState extends State<RegisterUserContent> {
             },
             body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
               input(label: 'Nome', controller: widget.name),
-              input(label: 'Sobrenome', controller: widget.lastName),
+              input(label: 'Celular', controller: widget.phone),
               input(label: 'E-mail', controller: widget.email),
-              input(label: 'Senha', controller: widget.pass),
-              DateField(callback: widget.birthdayCallback, selectedDate: widget.birthday),
-              Genre(callback: widget.isMaleCallback, isMale: widget.isMale)
+              input(label: 'Senha', controller: widget.pass)
             ])));
   }
 

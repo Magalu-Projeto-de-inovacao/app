@@ -19,12 +19,11 @@ class RegisterUserBloc extends Bloc<RegisterUserEvent, RegisterUserState> {
       yield currentState.copyWith(loading: true);
       try {
         await userRepository.register(
-            name: event.name,
-            lastName: event.lastName,
-            birthday: event.birthday,
-            pass: event.pass,
-            email: event.email,
-            isMale: event.isMale);
+          name: event.name,
+          phone: event.phone,
+          pass: event.pass,
+          email: event.email,
+        );
         yield currentState.copyWith(
             loading: false, stateRegister: StateRegister.registered);
       } on BadRequestException {
