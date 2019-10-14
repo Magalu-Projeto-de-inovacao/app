@@ -14,10 +14,16 @@ class AuthRepository {
   }
 
   Future<User> login({@required email, @required pass}) async {
-    ApiResponse response = await api.request(
-        method: Method.post,
-        path: '/user/login',
-        body: {'email': email, 'pass': pass});
+    ApiResponse response;
+    try {
+      response = await api.request(
+          method: Method.post,
+          path: '/users/login',
+          body: {'email': email, 'pass': pass});
+      print('response $response');
+    } catch (e) {
+      print('error $e');
+    }
 
     if (response.statusCode == 200)
       return User(email: email, token: response.body['token']);

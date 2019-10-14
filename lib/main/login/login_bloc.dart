@@ -31,13 +31,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         userService.user = user;
         yield currentState.copyWith(
             loading: false, stateAuth: StateAuth.logged);
-      } on NotFoundException {
-        yield currentState.copyWith(
-            loading: false, stateAuth: StateAuth.invalid);
-      } on SocketException {
-        yield currentState.copyWith(
-            loading: false, stateAuth: StateAuth.network);
+//      } on NotFoundException {
+//        yield currentState.copyWith(
+//            loading: false, stateAuth: StateAuth.invalid);
+//      } on SocketException {
+//        yield currentState.copyWith(
+//            loading: false, stateAuth: StateAuth.network);
       } catch (e) {
+        print(e);
         yield currentState.copyWith(
             loading: false, stateAuth: StateAuth.unknown);
       }
