@@ -1,6 +1,11 @@
+import 'package:app_desafio_inovacao/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductHome extends StatelessWidget {
+  final Product product;
+
+  ProductHome({@required this.product});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -14,12 +19,12 @@ class ProductHome extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: ClipOval(
-                  child: Image.network('https://via.placeholder.com/150',
+                  child: Image.network(product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/150',
                       width: 70, height: 70, fit: BoxFit.cover)),
             ),
             Expanded(
               child: Text(
-                'Notebook Acer Aspire 3 A315-33-C39F Dual Core - 4GB 500GB 15,6” Windows 10',
+                product.name,
                 style: TextStyle(
                     color: Colors.black87,
                     fontSize: 16,

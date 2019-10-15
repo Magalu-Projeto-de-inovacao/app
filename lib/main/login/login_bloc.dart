@@ -25,9 +25,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final user = await this
             .authRepository
             .login(email: event.email, pass: event.password);
-        await this
-            .userService
-            .save(prefs: event.prefs, email: user.email, token: user.token);
+        await this.userService.save(prefs: event.prefs, email: user.email, token: user.token);
         userService.user = user;
         yield currentState.copyWith(
             loading: false, stateAuth: StateAuth.logged);

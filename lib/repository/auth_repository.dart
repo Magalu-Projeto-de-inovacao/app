@@ -20,13 +20,12 @@ class AuthRepository {
           method: Method.post,
           path: '/users/login',
           body: {'email': email, 'pass': pass});
-      print('response $response');
     } catch (e) {
       print('error $e');
     }
 
     if (response.statusCode == 200)
-      return User(email: email, token: response.body['token']);
+      return User(email: email, token: response.body['content']['token']);
     if (response.statusCode == 404) return throw NotFoundException();
     return throw UnknownException();
   }

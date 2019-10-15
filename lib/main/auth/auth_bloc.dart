@@ -16,8 +16,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is Started) {
       final user = await this.userService.read(prefs: event.prefs);
+      print('auth $user');
       userService.user = user;
-      print(user);
       if (user == null)
         yield currentState.copyWith(stateAuth: StateAuth.initial);
       else

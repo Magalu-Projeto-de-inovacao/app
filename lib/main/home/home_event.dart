@@ -5,4 +5,8 @@ abstract class HomeEvent extends Equatable {
   HomeEvent([List props = const []]) : super(props);
 }
 
-class Started extends HomeEvent {}
+class Search extends HomeEvent {
+  final String query;
+
+  Search({this.query});
+}

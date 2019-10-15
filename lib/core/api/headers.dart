@@ -3,7 +3,7 @@ class Headers {
   Map<String, String> _defaultHeaders;
 
   Headers({String token, this.json}) {
-    _defaultHeaders = {'Authorization': token, 'Content-Type': 'application/json'};
+    _defaultHeaders = {'authentication': token, 'Content-Type': 'application/json'};
 
     if (this.json == null) this.json = Map();
 

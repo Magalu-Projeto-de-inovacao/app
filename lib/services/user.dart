@@ -25,6 +25,7 @@ class UserService {
       {@required Preferences prefs,
       @required String token,
       @required String email}) async {
+    print('save $token $email');
     final _prefs = await prefs.instance();
     await _prefs.setString('token', token);
     await _prefs.setString('email', email);
@@ -34,6 +35,7 @@ class UserService {
     final _prefs = await prefs.instance();
     final token = _prefs.getString('token');
     final email = _prefs.getString('email');
+    print('read $token $email');
     if (token == null) return null;
     return User(email: email, token: token);
   }
