@@ -1,3 +1,4 @@
+import 'package:app_desafio_inovacao/main/home/home_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'home.dart';
@@ -21,12 +22,16 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: SvgPicture.asset(
-          logo,
-          semanticsLabel: 'Logo',
-          height: 24,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 16.0),
+          child: SvgPicture.asset(
+            logo,
+            semanticsLabel: 'Logo',
+            height: 24,
+          ),
         ),
       ),
+      body: HomeContent(),
     );
   }
 
