@@ -1,3 +1,4 @@
+import 'package:app_desafio_inovacao/main/detail_product/detail_product_page.dart';
 import 'package:app_desafio_inovacao/models/product_model.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,10 @@ class ProductHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => DetailProductPage(product: product)));
+      },
       highlightColor: Theme.of(context).primaryColor.withOpacity(0.3),
       splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
       child: Padding(
@@ -19,8 +23,13 @@ class ProductHome extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: ClipOval(
-                  child: Image.network(product.images.length > 0 ? product.images[0] : 'https://via.placeholder.com/150',
-                      width: 70, height: 70, fit: BoxFit.cover)),
+                  child: Image.network(
+                      product.images.length > 0
+                          ? product.images[0]
+                          : 'https://via.placeholder.com/150',
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.cover)),
             ),
             Expanded(
               child: Text(

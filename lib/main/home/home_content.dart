@@ -10,55 +10,51 @@ class HomeContent extends StatelessWidget {
   final TextEditingController _searchController = new TextEditingController();
 
   _onSearch({@required BuildContext context, String query}) {
-    print('query $query');
     BlocProvider.of<HomeBloc>(context).dispatch(Search(query: query));
   }
 
   @override
   Widget build(BuildContext context) {
-    print('call build');
     return Column(children: <Widget>[
       SearchHome(
           searchController: _searchController,
           onSearch: (query) => _onSearch(context: context, query: query)),
-      BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          return Expanded(
-              child: state.loading
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : SingleChildScrollView(
-                      child: Column(
-                      children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: state.keySearch != '' ? Row(
+      BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+        return Expanded(
+            child: state.loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : SingleChildScrollView(
+                    child: Column(children: <Widget>[
+                    Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: state.keySearch != ''
+                            ? Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  Chip(
-                                    label: Text(
-                                      'Pesquisando por "${state.keySearch ?? ''}"',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    deleteIcon:
-                                        Icon(Icons.clear, color: Colors.white),
-                                    onDeleted: () {
-                                      _onSearch(context: context, query: '');
-                                    },
-                                    backgroundColor: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.8),
-                                  )
-                                ]) : Container()),
-                        Column(
-                            children: state.list
-                                .map((product) => ProductHome(product: product))
-                                .toList()),
-                      ],
-                    )));
-        },
-      )
+                                    Chip(
+                                        label: Text(
+                                          'Pesquisando por "${state.keySearch ?? ''}"',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        deleteIcon: Icon(Icons.clear,
+                                            color: Colors.white),
+                                        onDeleted: () {
+                                          _onSearch(
+                                              context: context, query: '');
+                                        },
+                                        backgroundColor: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(0.8))
+                                  ])
+                            : Container()),
+                    Column(
+                        children: state.list
+                            .map((product) => ProductHome(product: product))
+                            .toList())
+                  ])));
+      })
     ]);
   }
 }
