@@ -56,51 +56,84 @@ class DetailProductContent extends StatelessWidget {
   }
 
   Widget datasheet(context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: Text('Ficha Tecnica', style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.w500
-          ),),
-        ),
-        Column(
-            children: list
-                .asMap()
-                .map((index, value) =>
-                    MapEntry(index, itemDatasheet(index: index)))
-                .values
-                .toList()),
-      ],
-    );
+    return Column(children: <Widget>[
+      ListTile(
+          title: Text('Ficha Tecnica',
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w500))),
+      Padding(
+          padding: const EdgeInsets.only(bottom: 56.0),
+          child: Column(
+              children: list
+                  .asMap()
+                  .map((index, value) => MapEntry(
+                      index, itemDatasheet(context: context, index: index)))
+                  .values
+                  .toList()))
+    ]);
   }
 
-  Widget itemDatasheet({@required int index}) {
-    return Container(
-        height: 56.0,
-        color: index % 2 == 0 ? Colors.transparent : Colors.grey.shade200,
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Row(children: <Widget>[
-          Flexible(
-              flex: 1,
-              child: Container(
-                  constraints: BoxConstraints.expand(),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text('Marca',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500))
-                      ]))),
-          Flexible(
-              flex: 1,
-              child: Container(
-                  constraints: BoxConstraints.expand(),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text('Samsung', style: TextStyle(fontSize: 16))
-                      ])))
-        ]));
+  Widget itemDatasheet(
+      {@required BuildContext context, @required int index, String attribute}) {
+    return InkWell(
+        onTap: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext bc) {
+                return Container(
+                    child: Wrap(children: <Widget>[
+                  ListTile(
+                    title: Text('Atributo "$attribute" selecionado',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  ListTile(
+                      leading: Icon(
+                        Icons.edit,
+                        color: Colors.amber.shade700,
+                      ),
+                      title: Text('Deseja sugerir uma alteração?',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.amber.shade700)),
+                      onTap: () => {}),
+                  ListTile(
+                      leading: Icon(Icons.warning, color: Colors.red),
+                      title: Text('Informação enganosa',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: Colors.red)),
+                      onTap: () => {})
+                ]));
+              });
+        },
+        child: Container(
+            height: 56.0,
+            color: index % 2 == 0 ? Colors.transparent : Colors.grey.shade200,
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Row(children: <Widget>[
+              Flexible(
+                  flex: 1,
+                  child: Container(
+                      constraints: BoxConstraints.expand(),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text('Marca',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500))
+                          ]))),
+              Flexible(
+                  flex: 1,
+                  child: Container(
+                      constraints: BoxConstraints.expand(),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text('Samsung', style: TextStyle(fontSize: 16))
+                          ])))
+            ])));
   }
 }

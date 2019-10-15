@@ -23,6 +23,8 @@ class DetailProductPage extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0, top: 16.0),
                 child: SvgPicture.asset(logo,
                     semanticsLabel: 'Logo', height: 24))),
+        floatingActionButton: FloatingActionButton.extended(onPressed: (){}, label: Text('ADICIONAR INFORMAÇÃO')),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: BlocProvider(
           builder: (context) => DetailProductBloc(),
           child: DetailProductContent(product: product),
