@@ -31,7 +31,7 @@ class DetailProductContent extends StatelessWidget {
         width: double.infinity,
         height: 300.0,
         child: DefaultTabController(
-            length: product.images.length,
+            length: product.images.length <= 1 ? 1 : product.images.length,
             child: PageView(
                 children: images
                     .map((item) => Container(
