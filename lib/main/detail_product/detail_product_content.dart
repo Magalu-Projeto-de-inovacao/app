@@ -49,9 +49,8 @@ class DetailProductContent extends StatelessWidget {
     return Column(children: <Widget>[
       ListTile(title: Text('Apresentação do produto')),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(product.description),
-      )
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(product.description))
     ]);
   }
 
