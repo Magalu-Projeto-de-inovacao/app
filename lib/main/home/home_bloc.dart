@@ -13,8 +13,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         final productsRepository = new ProductsRepository();
         final list = await productsRepository.read(query: event.query ?? '');
-        yield currentState.copyWith(loading: false, list: list, keySearch: event.query);
+        yield currentState.copyWith(
+            loading: false, list: list, keySearch: event.query);
       } catch (e) {
+        print(e);
         yield currentState.copyWith(loading: false);
       }
     }

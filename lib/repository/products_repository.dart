@@ -22,8 +22,6 @@ class ProductsRepository {
       return List<Product>.from(
           response.body['content'].map((item) => Product.fromJSON(item)).toList());
 
-    print(response.body);
-
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }

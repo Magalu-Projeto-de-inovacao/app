@@ -1,11 +1,10 @@
 import 'package:app_desafio_inovacao/core/utils/line.dart';
+import 'package:app_desafio_inovacao/models/datasheet_model.dart';
 import 'package:app_desafio_inovacao/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class DetailProductContent extends StatelessWidget {
   final Product product;
-
-  final list = [0, 1, 2, 3, 4, 5, 6, 7];
 
   DetailProductContent({@required this.product});
 
@@ -55,6 +54,7 @@ class DetailProductContent extends StatelessWidget {
   }
 
   Widget datasheet(context) {
+    print('product.dataSheet ${product.dataSheet}');
     return Column(children: <Widget>[
       ListTile(
           title: Text('Ficha Tecnica',
@@ -64,17 +64,22 @@ class DetailProductContent extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.only(bottom: 56.0),
           child: Column(
-              children: list
+              children: product.dataSheet
                   .asMap()
                   .map((index, value) => MapEntry(
-                      index, itemDatasheet(context: context, index: index)))
+                      index,
+                      itemDatasheet(
+                          context: context, index: index, dataSheet: value)))
                   .values
                   .toList()))
     ]);
   }
 
   Widget itemDatasheet(
-      {@required BuildContext context, @required int index, String attribute}) {
+      {@required BuildContext context,
+      @required int index,
+      @required DataSheet dataSheet}) {
+    print('dataSheet $dataSheet');
     return InkWell(
         onTap: () {
           showModalBottomSheet(
@@ -83,7 +88,7 @@ class DetailProductContent extends StatelessWidget {
                 return Container(
                     child: Wrap(children: <Widget>[
                   ListTile(
-                    title: Text('Atributo "$attribute" selecionado',
+                    title: Text('Atributo "${dataSheet.attribute}" selecionado',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
@@ -120,7 +125,7 @@ class DetailProductContent extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text('Marca',
+                            Text(dataSheet.attribute,
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500))
                           ]))),
@@ -131,7 +136,8 @@ class DetailProductContent extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text('Samsung', style: TextStyle(fontSize: 16))
+                            Text(dataSheet.value,
+                                style: TextStyle(fontSize: 16))
                           ])))
             ])));
   }
