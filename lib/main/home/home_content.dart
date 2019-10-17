@@ -1,3 +1,4 @@
+import 'package:app_desafio_inovacao/core/utils/line.dart';
 import 'package:app_desafio_inovacao/main/home/components/searchHome.dart';
 import 'package:app_desafio_inovacao/main/home/home.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      Line(),
       SearchHome(
           searchController: _searchController,
           onSearch: (query) => _onSearch(context: context, query: query)),
