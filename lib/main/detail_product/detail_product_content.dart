@@ -125,7 +125,7 @@ class DetailProductContent extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            Text(dataSheet.attribute,
+                            Text(dataSheet.attribute ?? '',
                                 style: TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.w500))
                           ]))),
@@ -136,7 +136,7 @@ class DetailProductContent extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(dataSheet.value,
+                            Text(dataSheet.value ?? '',
                                 style: TextStyle(fontSize: 16))
                           ])))
             ])));
