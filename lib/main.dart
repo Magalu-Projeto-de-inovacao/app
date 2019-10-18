@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Health Booklet',
+        title: 'Magalu',
         theme: theme,
         home: AuthPage(prefs: Preferences()));
   }
