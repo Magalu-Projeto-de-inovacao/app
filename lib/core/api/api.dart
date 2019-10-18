@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 import 'api_response.dart';
 import 'headers.dart';
 
-const URL = 'http://192.168.1.8:3002';
+const URL = 'http://52.207.70.162:3000';
 
 class ApiService {
   Client client;
@@ -30,7 +30,7 @@ class ApiService {
       Map<String, dynamic> fullHeaders =
           Headers(token: userService?.user?.token, json: headers).json;
 
-      print('token ${userService?.user?.token}');
+      print('token ${fullHeaders}');
 
       Response response = await _callMethod(
           method: method, path: fullPath, body: body, headers: fullHeaders);
