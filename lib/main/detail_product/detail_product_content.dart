@@ -1,7 +1,11 @@
 import 'package:app_desafio_inovacao/core/utils/line.dart';
+import 'package:app_desafio_inovacao/main/detail_product/detail_product_bloc.dart';
+import 'package:app_desafio_inovacao/main/detail_product/detail_product_event.dart';
+import 'package:app_desafio_inovacao/main/request/request_page.dart';
 import 'package:app_desafio_inovacao/models/datasheet_model.dart';
 import 'package:app_desafio_inovacao/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailProductContent extends StatelessWidget {
   final Product product;
@@ -69,7 +73,10 @@ class DetailProductContent extends StatelessWidget {
                   .map((index, value) => MapEntry(
                       index,
                       itemDatasheet(
-                          context: context, index: index, dataSheet: value)))
+                          context: context,
+                          index: index,
+                          dataSheet: value,
+                          product: product)))
                   .values
                   .toList()))
     ]);
@@ -78,8 +85,8 @@ class DetailProductContent extends StatelessWidget {
   Widget itemDatasheet(
       {@required BuildContext context,
       @required int index,
-      @required DataSheet dataSheet}) {
-    print('dataSheet $dataSheet');
+      @required DataSheet dataSheet,
+      @required Product product}) {
     return InkWell(
         onTap: () {
           showModalBottomSheet(
@@ -103,13 +110,40 @@ class DetailProductContent extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.amber.shade700)),
-                      onTap: () => {}),
+                      onTap: () async {
+                        Navigator.pop(context);
+                        final changed = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RequestPage(
+                                    product: product.id,
+                                    idDataSheet: dataSheet.id,
+                                    initialAttribute: dataSheet.attribute,
+                                    initialValue: dataSheet.value)));
+
+                        if (changed == true) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Solicitação de alteração enviada com sucesso!'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        }
+                      }),
                   ListTile(
                       leading: Icon(Icons.warning, color: Colors.red),
                       title: Text('Informação enganosa',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, color: Colors.red)),
-                      onTap: () => {})
+                      onTap: () {
+                        BlocProvider.of<DetailProductBloc>(context).dispatch(
+                            Report(
+                                idDataSheet: dataSheet.id,
+                                product: product.id));
+                        Navigator.pop(context);
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Informação reportada com sucesso'),
+                            duration: Duration(seconds: 3)));
+                      })
                 ]));
               });
         },

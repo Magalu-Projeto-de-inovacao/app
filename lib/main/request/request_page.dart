@@ -6,14 +6,19 @@ import 'package:flutter_svg/svg.dart';
 
 class RequestPage extends StatelessWidget {
   final String product;
+  final String idDataSheet;
 
   TextEditingController attribute;
   TextEditingController value;
   TextEditingController reason;
 
-  RequestPage({@required this.product}) {
-    attribute = new TextEditingController();
-    value = new TextEditingController();
+  RequestPage(
+      {@required this.product,
+      this.idDataSheet,
+      String initialAttribute,
+      String initialValue}) {
+    attribute = new TextEditingController(text: initialAttribute);
+    value = new TextEditingController(text: initialValue);
     reason = new TextEditingController();
   }
 

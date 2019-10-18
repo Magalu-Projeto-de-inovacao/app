@@ -24,27 +24,28 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 16.0),
-              child:
-                  SvgPicture.asset(logo, semanticsLabel: 'Logo', height: 24)),
-          actions: <Widget>[
-            Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
-                  },
-                  child: CircleAvatar(
-                    maxRadius: 16,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Text(userService.user.email[0].toUpperCase()),
-                  ),
-                ))
-          ]
-        ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 16.0),
+                child:
+                    SvgPicture.asset(logo, semanticsLabel: 'Logo', height: 24)),
+            actions: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()));
+                      },
+                      child: CircleAvatar(
+                          maxRadius: 16,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          child:
+                              Text(userService.user.email[0].toUpperCase()))))
+            ]),
         body: BlocProvider(
           builder: (context) => HomeBloc()..dispatch(Search()),
           child: HomeContent(),

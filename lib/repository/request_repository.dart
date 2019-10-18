@@ -36,4 +36,23 @@ class RequestRepository {
     if (response.statusCode == 401) return throw BadRequestException();
     return throw UnknownException();
   }
+
+  report({@required String idDataSheet, @required String products}) async {
+    ApiResponse response = await api.request(
+        method: Method.post,
+        path: '/requests',
+        body: {
+          'idDatasheet': idDataSheet,
+          'products': products,
+          'report': true
+        });
+
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) return true;
+
+    if (response.statusCode == 401) return throw BadRequestException();
+    return throw UnknownException();
+  }
 }
