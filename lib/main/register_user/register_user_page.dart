@@ -27,12 +27,13 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
       bloc: registerUserBloc,
       builder: (context, RegisterUserState state) {
         return Scaffold(
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: FloatingActionButton.extended(
                 onPressed: !state.loading ? _submit : null,
-                child: state.loading
+                icon:  state.loading
                     ? CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                    : Icon(Icons.save)),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
+                    : Icon(Icons.save),
+                label: Text(state.loading ? 'CRIANDO': 'CRIAR')),
             body: RegisterUserContent(
                 registerUserBloc: registerUserBloc,
                 name: name,

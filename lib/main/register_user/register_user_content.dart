@@ -2,6 +2,7 @@ import 'package:app_desafio_inovacao/main/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_desafio_inovacao/main/register_user/components/DateField.dart';
+import 'package:flutter_svg/svg.dart';
 import 'components/Genre.dart';
 import 'register_user.dart';
 
@@ -24,6 +25,8 @@ class RegisterUserContent extends StatefulWidget {
 }
 
 class _RegisterUserContentState extends State<RegisterUserContent> {
+  final String logo = 'images/logo.svg';
+
   @override
   Widget build(BuildContext context) {
     return BlocListener(
@@ -34,29 +37,22 @@ class _RegisterUserContentState extends State<RegisterUserContent> {
             if (state.stateRegister == StateRegister.registered) _goToLogin();
           }
         },
-        child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                    expandedHeight: 200.0,
-                    floating: false,
-                    pinned: true,
-                    flexibleSpace: FlexibleSpaceBar(
-                        centerTitle: true,
-                        title: Text("Faça seu cadastro",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                            ))))
-              ];
-            },
-            body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
-              input(label: 'Nome', controller: widget.name),
-              input(label: 'Celular', controller: widget.phone),
-              input(label: 'E-mail', controller: widget.email),
-              input(label: 'Senha', controller: widget.pass)
-            ])));
+        child: Scaffold(
+          appBar: AppBar(
+              iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              title: Padding(
+                  padding: const EdgeInsets.only(left: 8.0, top: 16.0),
+                  child: SvgPicture.asset(logo,
+                      semanticsLabel: 'Logo', height: 24))),
+          body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
+            input(label: 'Nome', controller: widget.name),
+            input(label: 'Celular', controller: widget.phone),
+            input(label: 'E-mail', controller: widget.email),
+            input(label: 'Senha', controller: widget.pass)
+          ]),
+        ));
   }
 
   Widget input(
